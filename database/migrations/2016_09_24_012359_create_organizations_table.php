@@ -16,7 +16,22 @@ class CreateOrganizationsTable extends Migration
         Schema::create('organizations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('user_id');
+            $table->integer('user_id')->nullable();
+            $table->string('ein')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('backgroundImage')->nullable();
+            $table->text('description');
+            $table->string('address');
+            $table->string('city');
+            $table->string('region');
+            $table->string('postalCode');
+            $table->string('country');
+            $table->string('missionStatement')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('organizationURL')->nullable();
+            $table->string('donateURL')->nullable();
+            $table->integer('is_verified')->default(0);
+            $table->integer('is_charitable')->default(0);
             $table->timestamps();
         });
     }

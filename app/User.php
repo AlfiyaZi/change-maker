@@ -16,9 +16,10 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password','phone','avatar','location'
-    ];
+    public $is_verified = true;
+    public $is_authorized = true;
+    protected $fillable = 
+        ['name', 'email', 'password','phone','avatar','location'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -32,13 +33,16 @@ class User extends Authenticatable
       return $this->hasMany('App\Story');
     }
     public function organizations(){
-    
       return $this->hasMany('App\Organization');
-    }
-    public function attribs(){
-      return $this->hasMany('App\Attribute');
     }
     public function actions(){
       return $this->hasMany('App\Action');
     }
+    public function volunteer_activities(){
+        return $this->hasMany('App\ServiceLog');
+    }
+    public function owns($object){
+      return $object->user_id === $this->id;
+    }
+
 }

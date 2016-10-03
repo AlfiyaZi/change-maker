@@ -2,9 +2,10 @@
 
 namespace App;
 
+use App\Elegant;
 use Illuminate\Database\Eloquent\Model;
 
-class Story extends Model
+class Story extends Elegant
 {
     public function media($query){
       return $this->hasMany('App\StoryMedia');

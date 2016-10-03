@@ -27,10 +27,12 @@ use Illuminate\Http\Request;
 
 # Organization Routes
   Route::get('/organization','OrganizationController@list');
-  Route::get('/organization/{id}','OrganizationController@show');
-  Route::post('/organization','OrganizationController@create');
-  Route::put('/organization/{id}','OrganizationController@update');
-  Route::delete('/organization/{id}','OrganizationController@delete');
+  Route::get('/organization/{organization}','OrganizationController@show');
+  Route::post('/organization','OrganizationController@create')->middleware('auth:api');
+  Route::post('/organization/{organization}','OrganizationController@update')
+         ->middleware('auth:api');
+  Route::delete('/organization/{organization}','OrganizationController@delete')
+         ->middleware('auth:api');
   Route::get('/story/recommend','StoryController@recommended');
   Route::get('/story/featured','StoryController@featured');
 
