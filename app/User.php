@@ -44,5 +44,14 @@ class User extends Authenticatable
     public function owns($object){
       return $object->user_id === $this->id;
     }
+    public function orgFollows(){
+      return $this->belongsToMany('App\Organization');
+    }
+    public function follows($organization){
+      if($this->orgFollows->contains($organization->id)){
+        return true;
+      }
+      return false;
+    }
 
 }

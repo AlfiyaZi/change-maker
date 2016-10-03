@@ -45,6 +45,19 @@ class OrganizationController extends Controller
     return 'success';
   }
 
+  public function follow(Organization $organization){
+    if(auth()->user()->follows($organization)){
+      return $organization->load('followers');
+    }
+
+    $organization->followers()->attach(auth()->user()->id);
+    
+    return $organization->load('followers');
+  }
+  public function unfollow(Organization $organization){
+    $organization->followers()->detach(auth()->user()->id);
+    return $organization->load('followers');
+  }
   public function recommend(Request $request){
     
   }

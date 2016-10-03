@@ -33,6 +33,12 @@ use Illuminate\Http\Request;
          ->middleware('auth:api');
   Route::delete('/organization/{organization}','OrganizationController@delete')
          ->middleware('auth:api');
+  
+  Route::get('/organization/{organization}/follow','OrganizationController@follow')
+       ->middleware('auth:api');
+  Route::get('/organization/{organization}/unfollow','OrganizationController@unfollow')
+       ->middleware('auth:api');
+
   Route::get('/story/recommend','StoryController@recommended');
   Route::get('/story/featured','StoryController@featured');
 

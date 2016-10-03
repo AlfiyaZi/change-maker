@@ -28,6 +28,11 @@ class Organization extends Elegant
   public function owner(){
     return $this->belongsTo('App\User');
   }
+  
+  public function followers(){
+    return $this->belongsToMany('App\User');
+  }
+
   public function isOwnedBy(User $user){
     return $user->id === $this->user_id;
   }
