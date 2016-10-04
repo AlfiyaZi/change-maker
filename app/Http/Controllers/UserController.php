@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function show($id, Request $request){
-      return User::with('actions')->find($id);
+      return User::with('actions','orgFollows')->find($id);
     }
     
     public function update(User $user, Request $request){

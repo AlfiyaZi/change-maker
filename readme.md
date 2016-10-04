@@ -15,8 +15,6 @@ Updates the user, if you have permission to update the user. User fields include
 ### post /api/{user}/action
 Creates a new action associated with the user. Actions consist of a name(string), description(string), a duration (in minutes, integer), and a type (string). 
 
-### get /api/user/organizations
-
 ##Organizations
 
 Users may create organizations in the system. Organizations can be created by authorized users, and updated by the users that created them. Organizations may be followed or unfollowed by any authenticated user. 

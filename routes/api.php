@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
   Route::get('/user', function (Request $request) {
-      return $request->user()->load('actions');
+      return $request->user()->load('actions','orgFollows');
   })->middleware('auth:api');
 
 # User Routes
@@ -44,9 +44,9 @@ use Illuminate\Http\Request;
 
 # Story Routes
   Route::get('/stories','StoryController@list');
-  Route::post('/story','StoryController@create');
-  Route::put('/story/{id}','StoryController@update');
-  Route::delete('/story/{id}','StoryController@delete');
+  Route::post('/story','StoryController@create')->middleware('auth:api');
+  Route::post('/story/{id}','StoryController@update')->middleware('auth:api');
+  Route::delete('/story/{id}','StoryController@delete')->middleware('auth:api');
   Route::get('/story/{id}','StoryController@show');
   Route::get('/story/recommend','StoryController@recommended');
   Route::get('/story/featured','StoryController@featured');
