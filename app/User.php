@@ -27,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','email'
+        'password', 'remember_token','email','phone'
     ];
     public function stories(){
       return $this->hasMany('App\Story');
@@ -52,6 +52,9 @@ class User extends Authenticatable
         return true;
       }
       return false;
+    }
+    public function projects(){
+      return $this->hasMany('App\Project');
     }
 
 }

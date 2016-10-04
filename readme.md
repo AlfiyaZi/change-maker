@@ -2,7 +2,9 @@
 
 Changemaker is an authentication system for Points of Light and affiliated applications. The service verifies identities and helps third party services keep track of volunteer activities across various properties. It is intended to be a single-sign-on service for Points of Light.
 
-Changemaker is a fully functional OAuth2 server using [Laravel Passport](https://laravel.com/docs/5.3/passport]. Once a token has been granted, token holders have access to the following API methods:
+Changemaker is a fully functional OAuth2 server using [Laravel Passport](https://laravel.com/docs/5.3/passport). For full documentation on the server, please refer to the passport documentation and [the League's OAuth2.0 Server](https://oauth2.thephpleague.com). 
+
+Once a token has been granted, token holders have access to the following API methods:
 
 ## User Details
 
@@ -18,4 +20,45 @@ Creates a new action associated with the user. Actions consist of a name(string)
 ##Organizations
 
 Users may create organizations in the system. Organizations can be created by authorized users, and updated by the users that created them. Organizations may be followed or unfollowed by any authenticated user. 
+
+### get /api/organization
+
+Gets a list of all the organizations.
+
+### get 'api/organization/{organization}'
+Gets details of a particular organization by organization ID.
+
+### post 'api/organization'
+Creates a new organization. 
+
+#### String fields (bold means required):
+* *name* (must be unique)
+* ein (9 digits, no dashes, must be unique)
+* avatar (url) 
+* address
+* city
+* region
+* postalCode
+* country
+* phone
+* organizationURL (url)
+* donateURL (url)
+
+#### Text fields (bold means required): 
+* *description* 
+* missionStatement
+
+### post 'api/organization/{organization}'
+Updates the organization. See fields above.
+
+### delete 'api/organization/{organization}'
+Deletes the organization.
+
+### post 'api/organization/follow'
+Follows the organization on behalf of the authorized user
+
+### post 'api/organization/unfollow'
+Unfollows the organization on behalf of the authorized user
+
+
 

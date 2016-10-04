@@ -16,6 +16,7 @@ class Organization extends Elegant
   protected $rules = ['name' => 'min:3|max:254|required|unique:organizations,name',
                     'ein' => 'unique:organizations,ein|digits:9',
                     'description' => 'required|min:3',
+                    'avatar' => 'url',
                     'organizationURL' => 'url',
                     'donateURL' => 'url',
                     'missionStatement' => 'min:5'];

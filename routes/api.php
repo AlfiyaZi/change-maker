@@ -45,9 +45,11 @@ use Illuminate\Http\Request;
 # Story Routes
   Route::get('/stories','StoryController@list');
   Route::post('/story','StoryController@create')->middleware('auth:api');
-  Route::post('/story/{id}','StoryController@update')->middleware('auth:api');
-  Route::delete('/story/{id}','StoryController@delete')->middleware('auth:api');
-  Route::get('/story/{id}','StoryController@show');
+  Route::post('/story/{story}','StoryController@update')->middleware('auth:api');
+  Route::delete('/story/{story}','StoryController@delete')->middleware('auth:api');
+  Route::get('/story/{story}','StoryController@show');
+
+
   Route::get('/story/recommend','StoryController@recommended');
   Route::get('/story/featured','StoryController@featured');
 
