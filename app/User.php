@@ -47,14 +47,31 @@ class User extends Authenticatable
     public function orgFollows(){
       return $this->belongsToMany('App\Organization');
     }
-    public function follows($organization){
+    public function follows($organization)
+    {
       if($this->orgFollows->contains($organization->id)){
         return true;
       }
       return false;
     }
-    public function projects(){
+    public function emoted($story)
+    {
+      return $this->emotes->contains($story->id);
+    }
+    public function projects()
+    {
       return $this->hasMany('App\Project');
     }
-
+    public function rsvps()
+    {
+      return $this->belongsToMany('App\Project')
+                  ->withPivot('role','rating');
+    }
+    public function emotes()
+    {
+        return $this->belongsToMany('App\Story')
+                    ->withPivot('emotion');
+      
+    }
+    
 }

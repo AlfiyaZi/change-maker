@@ -39,8 +39,6 @@ use Illuminate\Http\Request;
   Route::get('/organization/{organization}/unfollow','OrganizationController@unfollow')
        ->middleware('auth:api');
 
-  Route::get('/story/recommend','StoryController@recommended');
-  Route::get('/story/featured','StoryController@featured');
 
 # Story Routes
   Route::get('/stories','StoryController@list');
@@ -48,8 +46,17 @@ use Illuminate\Http\Request;
   Route::post('/story/{story}','StoryController@update')->middleware('auth:api');
   Route::delete('/story/{story}','StoryController@delete')->middleware('auth:api');
   Route::get('/story/{story}','StoryController@show');
-
+  Route::post('/story/{story}/emote','StoryController@emote')->middleware('auth:api');
+  Route::delete('story/{story}/emote','StoryController@unemote')->middleware('auth:api');;
 
   Route::get('/story/recommend','StoryController@recommended');
   Route::get('/story/featured','StoryController@featured');
 
+# Project Routes
+  Route::get('/projects','ProjectController@list');
+  Route::post('/project','ProjectController@create')->middleware('auth:api');
+  Route::delete('/project/{project}','ProjectController@delete')->middleware('auth:api');
+  Route::post('/project/{project}','ProjectController@update')->middleware('auth:api');
+  Route::post('/project/{project}/rsvp','ProjectController@rsvp')->middleware('auth:api');
+  Route::post('/project/{project}/unrsvp','ProjectController@unrsvp')->middleware('auth:api');
+  Route::get('/project/{project}','ProjectController@show');
