@@ -13,17 +13,18 @@ use Illuminate\Http\Request;
 |
 */
 
-  Route::get('/user', function (Request $request) {
+  Route::get('/user', function (Request $request) { //ask about colons, is auth middleware!
       return $request->user()->load('actions','orgFollows');
-  })->middleware('auth:api', 'cors');
+  })->middleware('auth:api');
 
 # User Routes
   // Route::get('/user/{id}', 'UserController@show')->middleware('auth:api');
-  Route::post('/user/{user}','UserController@update')->middleware('auth:api', 'cors');
-  Route::post('/user/{user}/action','UserController@action')->middleware('auth:api', 'cors');
-  Route::delete('/user/{user}/{action_id}')->middleware('auth:api', 'cors');
+
+  Route::post('/user/{user}','UserController@update')->middleware('auth:api');
+  Route::post('/user/{user}/action','UserController@action')->middleware('auth:api');
+  Route::delete('/user/{user}/{action_id}')->middleware('auth:api');
   Route::get('/user/{user}/actions',
-             'UserController@actions')->middleware('auth:api', 'cors');
+             'UserController@actions')->middleware('auth:api');
 
 
 # Organization Routes
