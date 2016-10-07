@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-  Route::get('/user', function (Request $request) { //ask about colons, is auth middleware!
+  Route::get('/user', function (Request $request) {
       return $request->user()->load('actions','orgFollows');
   })->middleware('auth:api');
 
