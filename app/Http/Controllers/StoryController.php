@@ -45,12 +45,9 @@ class StoryController extends Controller
   }
 
   public function emote(Story $story, Request $request){
-    if(auth()->user()->emoted($story)){
-      $story->emotes()->detach(auth()->user()->id);
-    }
-    $story->emotes()->attach(auth()->user()->id, 
-      ['emotion' => $request->input('emotion')]
-    );
+    auth()->user()->emote($story, 
+      ['emotion' => $this->request->input('emotion')]);
+      
     
     return 'success';
   }

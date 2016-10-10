@@ -32,6 +32,8 @@ class CreateOrganizationsTable extends Migration
             $table->string('donateURL')->nullable();
             $table->integer('is_verified')->default(0);
             $table->integer('is_charitable')->default(0);
+            $table->integer('is_public')->default(1);
+            $table->string('data_source')->default('all for good');
             $table->timestamps();
         });
     }

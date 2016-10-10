@@ -19,7 +19,7 @@ class ProjectPolicy
      */
     public function view(User $user, Project $project)
     {
-        //
+        $project->load('locations','durations');
     }
 
     /**
@@ -42,7 +42,7 @@ class ProjectPolicy
      */
     public function update(User $user, Project $project)
     {
-        return $user->owns($story);
+        return $user->owns($project);
     }
 
     /**
@@ -54,6 +54,6 @@ class ProjectPolicy
      */
     public function delete(User $user, Project $project)
     {
-        return $user->owns($story);
+        return $user->owns($project);
     }
 }

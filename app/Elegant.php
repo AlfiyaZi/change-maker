@@ -23,4 +23,10 @@ class Elegant extends Model
     return $this->errors;
   }
 
+  public function emotions()
+  {
+    return $this->belongsToMany('App\User',
+      strtolower(class_basename($this)) . '_emotions');
+  }
+
 }

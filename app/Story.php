@@ -16,7 +16,4 @@ class Story extends Elegant
   public function owner(){
     return $this->hasOne('App\User');
   }
-  public function emotes(){
-    return $this->belongsToMany('App\User')->withPivot('emotion');
-  }
 }

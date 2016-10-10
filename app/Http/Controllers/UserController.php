@@ -36,4 +36,25 @@ class UserController extends Controller
     public function award(){
       return $user->awards();
     }
+    public function follow(User $targetUser)
+    {
+      auth()->user()->followUser($targetUser);
+      return 'success';
+    }
+    public function unfollow(User $targetUser)
+    {
+      auth()->user()->unfollowUser($targetUser);
+      return 'success';
+    }
+    public function block(User $targetUser)
+    {
+      auth()->user()->block($targetUser);
+    }
+    public function setRole(User $targetUser, Request $request){
+      $this->authorize('canSetRole',$targetUser);
+      $targetUser->setRole($request->get('role'));
+      return 'success';
+    }
+
+
 }

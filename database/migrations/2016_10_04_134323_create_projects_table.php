@@ -16,7 +16,7 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('organization_id');
+            $table->integer('organization_id')->nullable();
             $table->text('description');
             $table->integer('rsvpCount')->nullable();
             $table->integer('rsvpMax')->nullable();
@@ -26,6 +26,7 @@ class CreateProjectsTable extends Migration
             $table->string('privacy')->default('private');
             $table->string('status')->default('draft');
             $table->integer('user_id');
+            $table->integer('is_virtual')->defaut(0);
             $table->index('user_id');
             $table->timestamps();
         });
@@ -40,7 +41,7 @@ class CreateProjectsTable extends Migration
             $table->index(['project_id','user_id']);
             $table->timestamps();
         });
-        Schema::create('story_user', function (Blueprint $table) {
+        Schema::create('story_emotions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('story_id');
             $table->integer('user_id');

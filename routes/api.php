@@ -20,10 +20,11 @@ use Illuminate\Http\Request;
   //Route::get('/user/{id}', 'UserController@show')->middleware('auth:api');
   Route::post('/user/{user}','UserController@update')->middleware('auth:api');
   Route::post('/user/{user}/action','UserController@action')->middleware('auth:api');
-  Route::delete('/user/{user}/{action_id}')->middleware('auth:api');
+  Route::delete('/user/{user}/{action_id}','UserController@delete')->middleware('auth:api');
   Route::get('/user/{user}/actions',
              'UserController@actions')->middleware('auth:api');
-
+  Route::post('user/{targetUser}/follow','UserController@follow')->middleware('auth:api');
+  Route::post('user/{targetUser}/unfollow','UserController@unfollow')->middleware('auth:api');
 
 # Organization Routes
   Route::get('/organization','OrganizationController@list');
@@ -58,5 +59,12 @@ use Illuminate\Http\Request;
   Route::delete('/project/{project}','ProjectController@delete')->middleware('auth:api');
   Route::post('/project/{project}','ProjectController@update')->middleware('auth:api');
   Route::post('/project/{project}/rsvp','ProjectController@rsvp')->middleware('auth:api');
-  Route::post('/project/{project}/unrsvp','ProjectController@unrsvp')->middleware('auth:api');
+  Route::delete('/project/{project}/rsvp','ProjectController@unrsvp')->middleware('auth:api');
   Route::get('/project/{project}','ProjectController@show');
+
+  Route::post('/project/{project}/emote','ProjectController@emote')->middleware('auth:api');;
+  Route::delete('/project/{project}/emote','ProjectController@unemote')->middleware('auth:api');;
+
+  Route::post('/project/{project}/location','ProjectController@addLocation')->middleware('auth:api');
+  Route::post('/project/{project}/duration','ProjectController@addDuration')->middleware('auth:api');
+

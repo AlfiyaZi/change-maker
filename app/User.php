@@ -54,9 +54,9 @@ class User extends Authenticatable
       }
       return false;
     }
-    public function emoted($story)
+    public function emoted($object)
     {
-      return $this->emotes->contains($story->id);
+      return $object->emotions->contains($this);
     }
     public function projects()
     {
@@ -73,5 +73,33 @@ class User extends Authenticatable
                     ->withPivot('emotion');
       
     }
-    
+    public function is_attending($project){
+        return $this->rsvps->contains($project);
+    }
+
+    public function emote($object, $emotion){
+      if($object->emotions->contains($this)){
+        $object->emotions()->detach($this);
+      }
+      $object->emotions()->attach($this, ['emotion'=>$emotion]);
+      return $object;
+    }
+    public function setRole($level){
+      $this->role=$level;
+      $this->save();
+    }
+    public function user_follows(){
+      return $this->belongsToMany('App\User','user_follows','user_id','target_id');
+    }
+    public function followUser(User $user){
+      if(auth()->user()->id != $user->id){
+        $this->user_follows()->toggle($user->id);
+        $this->save();
+      }
+    }
+    public function unfollowUser(User $user){
+      $this->user_follows()->detach($user->id);
+    }
+
+
 }

@@ -4,6 +4,11 @@ Changemaker is an authentication system for Points of Light and affiliated appli
 
 Changemaker is a fully functional OAuth2 server using [Laravel Passport](https://laravel.com/docs/5.3/passport). For full documentation on the server, please refer to the passport documentation and [the League's OAuth2.0 Server](https://oauth2.thephpleague.com). 
 
+In order to install a development environment for this code, it's best to use either [Laravel Valet](https://laravel.com/docs/5.3/valet) or [Laravel Homestead](https://laravel.com/docs/5.3/homestead). Once your development environment is set up, create a .env file containing your database information, and then run:
+
+```php artisan passport:install```
+```php artisan migrate```
+
 Once a token has been granted, token holders have access to the following API methods:
 
 ## User Details
