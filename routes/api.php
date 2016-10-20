@@ -17,6 +17,9 @@ use Illuminate\Http\Request;
       return $request->user()->load('actions','orgFollows');
   })->middleware('auth:api');
 
+  #Contacts for Petition application
+  Route::post('/contacts', 'ContactController@create');
+
 # User Routes
   // Route::get('/user/{id}', 'UserController@show')->middleware('auth:api');
 
