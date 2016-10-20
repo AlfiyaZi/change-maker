@@ -20,10 +20,11 @@ class StoryController extends Controller
       return $story->errors();
     }
   }
-  public function update(Story $story){
+  public function update(Story $story, Request $request){
     $this->authorize('update',$story);
     if($story->validate($request->all())){
-      return auth()->user()->stories()->create($request->all());
+      $story->update($request->all());
+      return $story;
     } else {
       return $story->errors();
     }
@@ -43,10 +44,19 @@ class StoryController extends Controller
     
   }
 
-  public function like(){
+  public function emote(Story $story, Request $request){
+    if(auth()->user()->emoted($story)){
+      $story->emotes()->detach(auth()->user()->id);
+    }
+    $story->emotes()->attach(auth()->user()->id, 
+      ['emotion' => $request->input('emotion')]
+    );
     
+    return 'success';
   }
-  public function unlike(){
-    
+
+  public function unemote(Story $story){
+    $story->emotes()->detach(auth()->user()->id);
+    return 'success';
   }
 }

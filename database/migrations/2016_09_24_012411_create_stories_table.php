@@ -17,6 +17,9 @@ class CreateStoriesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('body');
+            $table->integer('approved_by')->nullable();
+            $table->boolean('is_approved')->default(0);
+            $table->boolean('is_featured')->nullable();
             $table->integer('user_id');
             $table->timestamps();
         });

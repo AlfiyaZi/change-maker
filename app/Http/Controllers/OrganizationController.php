@@ -10,7 +10,7 @@ class OrganizationController extends Controller
 {
   public function list(Request $request)
   {
-    
+    return Organization::all();
   }
 
   public function show(Organization $organization){
@@ -51,7 +51,7 @@ class OrganizationController extends Controller
     }
 
     $organization->followers()->attach(auth()->user()->id);
-    
+
     return $organization->load('followers');
   }
   public function unfollow(Organization $organization){
