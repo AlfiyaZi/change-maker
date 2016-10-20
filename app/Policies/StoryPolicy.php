@@ -56,4 +56,8 @@ class StoryPolicy
     {
         return $user->owns($story);
     }
+    public function approve(User $user, Story $story)
+    {
+        return in_array($user->role,['admin','leader','content']);
+    }
 }

@@ -18,6 +18,7 @@ class CreateStoryMediaTable extends Migration
             $table->string('type');
             $table->string('url');
             $table->string('caption');
+            $table->integer('story_id');
             $table->timestamps();
         });
     }
