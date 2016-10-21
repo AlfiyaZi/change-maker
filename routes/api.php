@@ -12,22 +12,21 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
   Route::get('/user', function (Request $request) {
       return $request->user()->load('actions','orgFollows');
   })->middleware('auth:api');
 
-  #Contacts for Petition application
-  Route::post('/contacts', 'ContactController@create');
-
 # User Routes
-  // Route::get('/user/{id}', 'UserController@show')->middleware('auth:api');
-
+  //Route::get('/user/{id}', 'UserController@show')->middleware('auth:api');
   Route::post('/user/{user}','UserController@update')->middleware('auth:api');
   Route::post('/user/{user}/action','UserController@action')->middleware('auth:api');
   Route::delete('/user/{user}/{action_id}')->middleware('auth:api');
   Route::get('/user/{user}/actions',
              'UserController@actions')->middleware('auth:api');
+
+
+#Contacts for Petition application
+Route::post('/contacts', 'ContactController@create');
 
 
 # Organization Routes
@@ -38,7 +37,6 @@ use Illuminate\Http\Request;
          ->middleware('auth:api');
   Route::delete('/organization/{organization}','OrganizationController@delete')
          ->middleware('auth:api');
-
   Route::get('/organization/{organization}/follow','OrganizationController@follow')
        ->middleware('auth:api');
   Route::get('/organization/{organization}/unfollow','OrganizationController@unfollow')

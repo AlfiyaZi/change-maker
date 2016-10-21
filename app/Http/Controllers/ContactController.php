@@ -10,8 +10,11 @@ class ContactController extends Controller
 {
     public function create(Request $request){
       $data = $request->input('contact');
-      $email = $request->input('contact.email');
-      $contact = Contact::firstOrCreate(['email' => $email], $data);
-      return $contact;
+      $contact = new Contact();
+      if($contact->validate($data)){
+        return Contact::firstOrCreate(['email' => $data['email']], $data);
+      } else {
+        return $contact->errors();
+      }
     }
 }
