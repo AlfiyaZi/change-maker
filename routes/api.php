@@ -26,6 +26,10 @@ use Illuminate\Http\Request;
   Route::post('user/{targetUser}/follow','UserController@follow')->middleware('auth:api');
   Route::post('user/{targetUser}/unfollow','UserController@unfollow')->middleware('auth:api');
 
+#Contacts for Petition application
+Route::post('/contacts', 'ContactController@create');
+
+
 # Organization Routes
   Route::get('/organization','OrganizationController@list');
   Route::get('/organization/{organization}','OrganizationController@show');
@@ -34,7 +38,6 @@ use Illuminate\Http\Request;
          ->middleware('auth:api');
   Route::delete('/organization/{organization}','OrganizationController@delete')
          ->middleware('auth:api');
-  
   Route::get('/organization/{organization}/follow','OrganizationController@follow')
        ->middleware('auth:api');
   Route::get('/organization/{organization}/unfollow','OrganizationController@unfollow')
