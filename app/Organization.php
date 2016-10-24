@@ -33,6 +33,9 @@ class Organization extends Elegant
   public function followers(){
     return $this->belongsToMany('App\User');
   }
+  public function projects(){
+    return $this->hasMany('App\Project');
+  }
 
   public function isOwnedBy(User $user){
     return $user->id === $this->user_id;
@@ -55,4 +58,5 @@ class Organization extends Elegant
     $this->rules['ein'] = 'digits:9|unique:organizations,ein,' . $this->id;
     return $this->rules;
   }
+
 }

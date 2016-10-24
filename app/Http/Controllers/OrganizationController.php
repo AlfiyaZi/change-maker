@@ -14,7 +14,7 @@ class OrganizationController extends Controller
   }
 
   public function show(Organization $organization){
-    return $organization;
+    return $organization->load('projects','followers');
   }
   public function create(Request $request){
     $this->authorize('create',Organization::class);
