@@ -17,8 +17,8 @@ class CreateContactsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('email');
-            $table->integer('organization_id');
-            $table->string('tags', 255);
+            $table->integer('organization_id')->default(1);
+            $table->string('tags', 255)->nullable()->default("POL");
         });
     }
 
