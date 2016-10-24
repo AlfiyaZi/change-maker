@@ -14,7 +14,7 @@ class ContactController extends Controller
       if($contact->validate($data)){
         return Contact::firstOrCreate(['email' => $data['email']], $data);
       } else {
-        return $contact->errors();
+        return array("errors" => $contact->errors());
       }
     }
 }
