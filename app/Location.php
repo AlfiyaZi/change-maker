@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Elegant
 {
-    //
 
   protected $fillable = [
-    'name','address','city','region',
-    'postalCode','lat','lng'
+    'name', 'street_address1', 'street_address2', 'street_address3', 'city', 'region',
+    'postalCode', 'lat', 'lng', 'directions', 'country', 'geocode_string'
   ];
-  protected $rules = [
-    'name' => 'required|min:5',
-  ];
+
+  // protected $rules = [
+  //   'name' => 'required|min:5',
+  // ];
 
   public function geocode(){
     //TODO

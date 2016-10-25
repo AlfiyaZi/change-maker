@@ -11,13 +11,13 @@ class UserController extends Controller
     public function show($id, Request $request){
       return User::with('actions','orgFollows')->find($id);
     }
-    
+
     public function update(User $user, Request $request){
       $this->authorize($user);
       $user->update($request->all());
       return $user;
     }
-    
+
     public function action(User $user, Request $request){
       $user->actions()->create($request->all());
       return $user->actions;

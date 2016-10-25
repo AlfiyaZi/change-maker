@@ -26,7 +26,7 @@ class CreateProjectsTable extends Migration
             $table->string('privacy')->default('private');
             $table->string('status')->default('draft');
             $table->integer('user_id');
-            $table->integer('is_virtual')->defaut(0);
+            $table->integer('is_virtual')->default(0);
             $table->index('user_id');
             $table->timestamps();
         });

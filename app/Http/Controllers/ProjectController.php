@@ -14,7 +14,7 @@ class ProjectController extends Controller
   private $request;
   public function __construct(Request $request){
     $this->request = $request;
-    
+
   }
   public function list(Request $request){
     return Project::all();
@@ -22,8 +22,10 @@ class ProjectController extends Controller
 
   public function create(Request $request){
     $this->authorize('create', Project::class);
-    $data = array_map('trim',$request->all());
+    // $data = array_map('trim',$request->all());
+    $data = $request->input('project');
     $project = new Project($data);
+    // \Psy\Shell::debug(get_defined_vars());
     if($project->validate($data)){
       return auth()->user()->projects()->save($project);
     } else {
@@ -39,7 +41,7 @@ class ProjectController extends Controller
     }
     $project->update($this->request->all());
     return $project;
-  } 
+  }
 
   public function delete(Project $project){
     $this->authorize('delete', $project);
@@ -55,7 +57,7 @@ class ProjectController extends Controller
     $project->rsvpCount = $project->rsvps->count();
     $project->save();
     return 'success';
-    
+
   }
   public function unrsvp(Project $project){
     if(auth()->user()->is_attending($project)){
