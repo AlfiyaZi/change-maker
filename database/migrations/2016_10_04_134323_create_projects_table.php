@@ -53,8 +53,8 @@ class CreateProjectsTable extends Migration
         });
         Schema::create('durations', function (Blueprint $table) {
             $table->increments('id');
-            $table->datetime('start');
-            $table->datetime('end');
+            $table->integer('start');
+            $table->integer('end');
             $table->string('timezone');
             $table->integer('project_id')->unsigned();
 

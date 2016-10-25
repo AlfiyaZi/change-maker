@@ -10,24 +10,26 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    //
   private $request;
+
   public function __construct(Request $request){
     $this->request = $request;
-
   }
+  
   public function list(Request $request){
     return Project::all();
   }
 
   public function create(Request $request){
     $this->authorize('create', Project::class);
-    // $data = array_map('trim',$request->all());
     $data = $request->input('project');
     $project = new Project($data);
-    // \Psy\Shell::debug(get_defined_vars());
     if($project->validate($data)){
-      return auth()->user()->projects()->save($project);
+      auth()->user()->projects()->save($project);
+      //need to add admin and validate duration and locations
+      $project->durations()->create($request->input('durations'));
+      $project->locations()->create($request->input('location'));
+      return $project;
     } else {
       return $project->errors();
     }
@@ -78,13 +80,13 @@ class ProjectController extends Controller
     $project->emotions()->detach(auth()->user());
     return 'success';
   }
+
   public function show(Project $project){
     $project->load('durations','locations');
     return $project;
   }
 
-  public function addDuration(Project $project, Request $request)
-  {
+  public function addDuration(Project $project, Request $request){
     $this->authorize('update',$project);
     $duration = new Duration($this->request->all());
     if(!$duration->validate($this->request->all())){
@@ -93,6 +95,7 @@ class ProjectController extends Controller
     $project->durations()->firstOrCreate($this->request->all());
     return $project->load('durations');
   }
+
   public function addLocation(Project $project){
     $this->authorize('update',$project);
     $location = new Location($this->request->all());
