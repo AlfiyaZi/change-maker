@@ -46,10 +46,10 @@ class ProjectController extends Controller
         return $project;
     }
 
-    public function delete(Project $project){
+    public function destroy(Project $project){
         $this->authorize('delete', $project);
         $project->delete();
-        return 'success';
+        return $project;
     }
 
     public function rsvp(Project $project){
