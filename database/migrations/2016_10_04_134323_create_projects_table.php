@@ -89,7 +89,7 @@ class CreateProjectsTable extends Migration
         Schema::drop('durations');
         Schema::drop('locations');
         Schema::drop('project_user');
-        Schema::drop('story_user');
+        Schema::drop('story_emotions');
 
     }
 }
