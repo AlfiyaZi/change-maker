@@ -57,7 +57,7 @@ Route::post('/contacts', 'ContactController@create');
   Route::get('/story/featured','StoryController@featured');
 
 # Project Routes
-  Route::get('/projects','ProjectController@list');
+  Route::get('/projects','ProjectController@list')->middleware('auth:api');
   Route::post('/project','ProjectController@create')->middleware('auth:api');
   Route::delete('/project/{project}','ProjectController@delete')->middleware('auth:api');
   Route::post('/project/{project}','ProjectController@update')->middleware('auth:api');
@@ -70,4 +70,3 @@ Route::post('/contacts', 'ContactController@create');
 
   Route::post('/project/{project}/location','ProjectController@addLocation')->middleware('auth:api');
   Route::post('/project/{project}/duration','ProjectController@addDuration')->middleware('auth:api');
-
