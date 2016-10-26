@@ -55,6 +55,17 @@ class UserController extends Controller
       $targetUser->setRole($request->get('role'));
       return 'success';
     }
+    public function find_friends(Request $request){
+      $friends = $request->input('friends');
+      $friend_array = User::all();
+      return $friend_array;
+    }
+    public function add_id(User $user, Request $request){
+      $this->authorize('update',$user);
+      $user->facebook_id = $request->input('facebook_id');
+      $user->save();
+      return 'success';
+    }
 
 
 }

@@ -25,7 +25,8 @@ use Illuminate\Http\Request;
              'UserController@actions')->middleware('auth:api');
   Route::post('user/{targetUser}/follow','UserController@follow')->middleware('auth:api');
   Route::post('user/{targetUser}/unfollow','UserController@unfollow')->middleware('auth:api');
-
+  Route::post('user/{user}/find_friends','UserController@find_friends')->middleware('auth:api');
+  Route::post('user/{user}/addfacebook','UserController@add_id')->middleware('auth:api');
 #Contacts for Petition application
 Route::post('/contacts', 'ContactController@create');
 

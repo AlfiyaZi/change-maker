@@ -33,6 +33,6 @@ class CreateOrganizationUserContactPermissionsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('organization_contact_status');
     }
 }
