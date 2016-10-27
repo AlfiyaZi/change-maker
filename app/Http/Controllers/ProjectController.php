@@ -37,12 +37,20 @@ class ProjectController extends Controller
         return false;
     }
 
-    public function update(Project $project){
+    public function update(Project $project, Request $request){
         $this->authorize('update', $project);
-        if (!$project->validate($this->request->all())){
-          return $project->errors();
+        // if (!$project->validate($this->request->all())){
+          // return $project->errors();
+        // }
+        if ($request->input('project')){
+          $project->update($request->input('project'));
         }
-        $project->update($this->request->all());
+        if ($request->input('durations')){
+          $project->durations[0]->update($request->input('durations'));
+        }
+        if ($request->input('location')){
+          $project->locations[0]->update($request->input('location'));
+        }
         return $project;
     }
 
