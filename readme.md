@@ -65,5 +65,10 @@ Follows the organization on behalf of the authorized user
 ### post 'api/organization/unfollow'
 Unfollows the organization on behalf of the authorized user
 
+## post '/api/user/{id}/addfacebook'
+Add a facebook ID to the user account. Post { "facebook_id": "XXXXXXXXX"} 
 
+## post 'api/user/{id}/find_friends'
+Post an array of friend ids from facebook to look for matches in the database. Returns a list of matches.
+['XXXXXXXXX','XXXXXXXXX','XXXXXXXXX','XXXXXXXXX']
 
