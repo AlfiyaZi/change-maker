@@ -17,8 +17,8 @@ class ProjectController extends Controller
     }
 
     public function list(Request $request){
-      return auth()->user()->projects; //returning only projects that user created for now
-      //need to have user's future events return
+      return Project::with('durations', 'locations')->where('user_id', auth()->user()->id)->get();; //only showing admin's events for now
+      // return auth()->user()->projects //returning only projects that user created for now, need to have user's future events return
     }
 
     public function create(Request $request){
