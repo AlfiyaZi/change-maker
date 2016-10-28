@@ -19,6 +19,7 @@ class ProjectController extends Controller
     public function list(Request $request){
       return Project::with('durations', 'locations')->where('user_id', auth()->user()->id)->get();; //only showing admin's events for now
       // return auth()->user()->projects //returning only projects that user created for now, need to have user's future events return
+      //eventually want all projects a user is rsvped for
     }
 
     public function create(Request $request){
@@ -62,12 +63,12 @@ class ProjectController extends Controller
 
     public function rsvp(Project $project){
         if (auth()->user()->is_attending($project)){
-          $project->rsvps()->detach(auth()->user()->id);
+            $project->rsvps()->detach(auth()->user()->id);
         }
         $project->rsvps()->attach(auth()->user()->id);
         $project->rsvpCount = $project->rsvps->count();
         $project->save();
-        return 'success';
+        return $project;
 
     }
 
@@ -77,7 +78,7 @@ class ProjectController extends Controller
         }
         $project->rsvpCount = $project->rsvps->count();
         $project->save();
-        return success;
+        return $project;
     }
 
     public function emote(Project $project){

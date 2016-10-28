@@ -62,7 +62,7 @@ Route::post('/contacts', 'ContactController@create');
   Route::delete('/project/{project}','ProjectController@destroy')->middleware('auth:api');
   Route::post('/project/{project}','ProjectController@update')->middleware('auth:api');
   Route::post('/project/{project}/rsvp','ProjectController@rsvp')->middleware('auth:api');
-  // Route::delete('/project/{project}/rsvp','ProjectController@unrsvp')->middleware('auth:api');
+  Route::post('/project/{project}/unrsvp','ProjectController@unrsvp')->middleware('auth:api');
   Route::get('/project/{project}','ProjectController@show');
 
   Route::post('/project/{project}/emote','ProjectController@emote')->middleware('auth:api');;
