@@ -64,6 +64,7 @@ Route::post('/contacts', 'ContactController@create');
   Route::post('/project/{project}/rsvp','ProjectController@rsvp')->middleware('auth:api');
   Route::post('/project/{project}/unrsvp','ProjectController@unrsvp')->middleware('auth:api');
   Route::get('/project/{project}','ProjectController@show');
+  Route::get('/project-edit/{project}','ProjectController@edit');
 
   Route::post('/project/{project}/emote','ProjectController@emote')->middleware('auth:api');;
   Route::delete('/project/{project}/emote','ProjectController@unemote')->middleware('auth:api');;

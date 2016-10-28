@@ -7,6 +7,14 @@ use App\Location;
 use App\Http\Requests;
 use App\Project;
 use Illuminate\Http\Request;
+// use app\Projects\UserJoinedProject;
+// namespace App\Project;
+// // use App\Ev as Evt;
+// // use App\Events\Event;
+use App\User;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Log;
 
 class ProjectController extends Controller
 {
@@ -17,8 +25,7 @@ class ProjectController extends Controller
     }
 
     public function list(Request $request){
-      return Project::with('durations', 'locations')->where('user_id', auth()->user()->id)->get();; //only showing admin's events for now
-      // return auth()->user()->projects //returning only projects that user created for now, need to have user's future events return
+      return auth()->user()->projects->load('durations','locations'); //returning only projects that user created for now, need to have user's future events return
       //eventually want all projects a user is rsvped for
     }
 
@@ -68,8 +75,15 @@ class ProjectController extends Controller
         $project->rsvps()->attach(auth()->user()->id);
         $project->rsvpCount = $project->rsvps->count();
         $project->save();
-        return $project;
-
+            event(new UserJoinedProject($project, auth()->user()));
+        // Pusher.trigger("event_volunteers#{self.id}", 'new_volunteer_registration', {
+        //   name: volunteer.name,
+        //   image: volunteer.image(:thumb),
+        //   id: volunteer.id
+        // })
+        $project->load('durations','locations');
+        $users = $project->rsvps()->getResults();
+        return $data = array("project" => $project, "users" => $users);
     }
 
     public function unrsvp(Project $project){
@@ -78,7 +92,9 @@ class ProjectController extends Controller
         }
         $project->rsvpCount = $project->rsvps->count();
         $project->save();
-        return $project;
+        $project->load('durations','locations');
+        $users = $project->rsvps()->getResults();
+        return $data = array("project" => $project, "users" => $users);
     }
 
     public function emote(Project $project){
@@ -93,6 +109,13 @@ class ProjectController extends Controller
     }
 
     public function show(Project $project){
+        $project->load('durations','locations');
+        $users = $project->rsvps()->getResults();
+        $data = array("project" => $project, "users" => $users);
+        return $data;
+    }
+
+    public function edit(Project $project){
         $project->load('durations','locations');
         return $project;
     }
@@ -115,5 +138,33 @@ class ProjectController extends Controller
         }
         $project->locations()->firstOrCreate($this->request->all());
         return $project->load('locations','durations');
+    }
+}
+
+class UserJoinedProject implements ShouldBroadcast
+{
+    use SerializesModels;
+    public $user;
+    public $project;
+    /**
+     * Create a new event instance.
+     *
+     * @return void
+     */
+    public function __construct(Project $project, User $user)
+    {
+        $this->user = $user;
+        $this->project  = $project;
+    }
+
+    /**
+     * Get the channels the event should be broadcast on.
+     *
+     * @return array
+     */
+    public function broadcastOn()
+    {
+        return $this->project;
+        // return ['event.' . $this->project->id];
     }
 }
