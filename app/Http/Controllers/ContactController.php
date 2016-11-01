@@ -12,7 +12,14 @@ class ContactController extends Controller
       $data = $request->input('contact');
       $contact = new Contact();
       if($contact->validate($data)){
-        return Contact::firstOrCreate(['email' => $data['email']], $data);
+        $contact = Contact::firstOrCreate($data);
+        $friends = $request->input('friends');
+        if (count($friends) > 0) {
+          foreach ($friends as $friend){
+            $contact->friends()->firstOrCreate($friend);
+          }
+        }
+        $post->comments()->saveMany($comments);
       } else {
         return array("errors" => $contact->errors());
       }

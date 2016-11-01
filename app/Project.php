@@ -9,7 +9,7 @@ class Project extends Elegant
 
   protected $fillable = [
     'name','description','rsvpMax','minimumAge','sexRestrictedTo',
-    'backgroundCheckRequired'
+    'backgroundCheckRequired', 'is_virtual'
   ];
 
   protected $rules = [
